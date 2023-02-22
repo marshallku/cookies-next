@@ -5,8 +5,8 @@ Successor of cookies-next.
 Re-created this repository for faster development of Albamon MSA
 ```
 
-[![npm version](https://badge.fury.io/js/cookies-next.svg)](https://badge.fury.io/js/cookies-next)
-![GitHub code size in bytes](https://img.shields.io/bundlephobia/min/cookies-next?style=plastic)
+[![npm version](https://badge.fury.io/js/cookies-next.svg)](https://badge.fury.io/js/@marshallku/cookies-next)
+![GitHub code size in bytes](https://img.shields.io/bundlephobia/min/@marshallku/cookies-next?style=plastic)
 
 Getting, setting and removing cookies with NEXT.JS
 
@@ -17,7 +17,7 @@ Getting, setting and removing cookies with NEXT.JS
 ## Installation
 
 ```
-npm install --save cookies-next
+npm install --save @marshallku/cookies-next
 ```
 
 If you are using next.js version greater than `12.2.0` you need to use cookies-next version `2.1.0` or later
