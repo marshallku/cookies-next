@@ -1,5 +1,5 @@
 {
-    "name": "cookies-next",
+    "name": "@marshallku/cookies-next",
     "version": "1.0.0",
     "description": "Getting, setting and removing cookies on both client and server with next.js",
     "main": "lib/index.js",
