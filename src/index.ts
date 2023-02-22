@@ -121,26 +121,8 @@ export const setCookie = (
     }
 };
 
-export const setCookies = (
-    key: string,
-    data: any,
-    options?: OptionsType
-): void => {
-    console.warn(
-        "[WARN]: setCookies was deprecated. It will be deleted in the new version. Use setCookie instead."
-    );
-    return setCookie(key, data, options);
-};
-
 export const deleteCookie = (key: string, options?: OptionsType): void => {
     return setCookie(key, "", { ...options, maxAge: -1 });
-};
-
-export const removeCookies = (key: string, options?: OptionsType): void => {
-    console.warn(
-        "[WARN]: removeCookies was deprecated. It will be deleted in the new version. Use deleteCookie instead."
-    );
-    return deleteCookie(key, options);
 };
 
 export const hasCookie = (key: string, options?: OptionsType): boolean => {
@@ -148,11 +130,4 @@ export const hasCookie = (key: string, options?: OptionsType): boolean => {
 
     const cookie = getCookies(options);
     return cookie.hasOwnProperty(key);
-};
-
-export const checkCookies = (key: string, options?: OptionsType): boolean => {
-    console.warn(
-        "[WARN]: checkCookies was deprecated. It will be deleted in the new version. Use hasCookie instead."
-    );
-    return hasCookie(key, options);
 };
