@@ -1,13 +1,18 @@
 # cookies-next
 
+```
+Successor of cookies-next.
+Re-created this repository for faster development of Albamon MSA
+```
+
 [![npm version](https://badge.fury.io/js/cookies-next.svg)](https://badge.fury.io/js/cookies-next)
 ![GitHub code size in bytes](https://img.shields.io/bundlephobia/min/cookies-next?style=plastic)
 
 Getting, setting and removing cookies with NEXT.JS
 
-- can be used on the client side, anywhere
-- can be used for server side rendering in getServerSideProps
-- can be used in API handlers
+-   can be used on the client side, anywhere
+-   can be used for server side rendering in getServerSideProps
+-   can be used in API handlers
 
 ## Installation
 
@@ -22,24 +27,24 @@ If you are using next.js version greater than `12.2.0` you need to use cookies-n
 Create a cookie:
 
 ```js
-import { setCookie } from 'cookies-next';
+import { setCookie } from "cookies-next";
 
-setCookie('key', 'value', options);
+setCookie("key", "value", options);
 ```
 
 Read a cookie:
 
 ```js
-import { getCookie } from 'cookies-next';
+import { getCookie } from "cookies-next";
 
-getCookie('key', options); // => 'value'
-getCookie('nothing', options); // => undefined
+getCookie("key", options); // => 'value'
+getCookie("nothing", options); // => undefined
 ```
 
 Read all cookies:
 
 ```js
-import { getCookies } from 'cookies-next';
+import { getCookies } from "cookies-next";
 
 getCookies(options); // => { 'name1': 'value1', name2: 'value2' }
 ```
@@ -47,16 +52,16 @@ getCookies(options); // => { 'name1': 'value1', name2: 'value2' }
 Check if a cookie exists:
 
 ```js
-import { hasCookie } from 'cookies-next';
+import { hasCookie } from "cookies-next";
 
-hasCookie('name', options); // => true
-hasCookie('nothing', options); // => false
+hasCookie("name", options); // => true
+hasCookie("nothing", options); // => false
 ```
 
 Delete a cookie:
 
 ```js
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie } from "cookies-next";
 
 deleteCookie(name, options);
 ```
@@ -65,9 +70,9 @@ _IMPORTANT! When deleting a cookie and you're not relying on the default attribu
 you must pass the exact same path and domain attributes that were used to set the cookie:_
 
 ```js
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie } from "cookies-next";
 
-deleteCookie(name, { path: '/path', domain: '.yourdomain.com' });
+deleteCookie(name, { path: "/path", domain: ".yourdomain.com" });
 ```
 
 ### Performance
@@ -86,13 +91,13 @@ as the first argument to the function and when server side rendering, this funct
 #### Client Example
 
 ```js
-import { getCookies, setCookie, deleteCookie } from 'cookies-next';
+import { getCookies, setCookie, deleteCookie } from "cookies-next";
 
 // we can use it anywhere
 getCookies();
-getCookie('key');
-setCookie('key', 'value');
-deleteCookie('key');
+getCookie("key");
+setCookie("key", "value");
+deleteCookie("key");
 ```
 
 #### SSR Example
@@ -100,20 +105,20 @@ deleteCookie('key');
 `/page/index.js`
 
 ```jsx
-import React from 'react';
-import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
+import React from "react";
+import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 const Home = () => {
-  return <div>page content</div>;
+    return <div>page content</div>;
 };
 
 export const getServerSideProps = ({ req, res }) => {
-  setCookie('test', 'value', { req, res, maxAge: 60 * 6 * 24 });
-  getCookie('test', { req, res });
-  getCookies({ req, res });
-  deleteCookie('test', { req, res });
+    setCookie("test", "value", { req, res, maxAge: 60 * 6 * 24 });
+    getCookie("test", { req, res });
+    getCookies({ req, res });
+    deleteCookie("test", { req, res });
 
-  return { props: {} };
+    return { props: {} };
 };
 
 export default Home;
@@ -124,16 +129,16 @@ export default Home;
 `/page/api/example.js`
 
 ```js
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 export default async function handler(req, res) {
-  setCookie('server-key', 'value', { req, res, maxAge: 60 * 60 * 24 });
-  getCookie('key', { req, res });
-  getCookies({ req, res });
-  deleteCookie('key', { req, res });
+    setCookie("server-key", "value", { req, res, maxAge: 60 * 60 * 24 });
+    getCookie("key", { req, res });
+    getCookies({ req, res });
+    deleteCookie("key", { req, res });
 
-  return res.status(200).json({ message: 'ok' });
+    return res.status(200).json({ message: "ok" });
 }
 ```
 
@@ -142,10 +147,10 @@ export default async function handler(req, res) {
 ## setCookie(key, value, options);
 
 ```js
-setCookie('key', 'value', options);
+setCookie("key", "value", options);
 
-setCookie('key', 'value'); // - client side
-setCookie('key', 'value', { req, res }); // - server side
+setCookie("key", "value"); // - client side
+setCookie("key", "value", { req, res }); // - server side
 ```
 
 ## getCookies(options);
@@ -165,15 +170,15 @@ getCookie('key', { req, res }); - server side
 ## hasCookie(key, options);
 
 ```js
-hasCookie('key'); // - client side
-hasCookie('key', { req, res }); // - server side
+hasCookie("key"); // - client side
+hasCookie("key", { req, res }); // - server side
 ```
 
 ### deleteCookie(key, options);
 
 ```js
-deleteCookie('key'); // - client side
-deleteCookie('key', { req, res }); // - server side
+deleteCookie("key"); // - client side
+deleteCookie("key", { req, res }); // - server side
 ```
 
 _IMPORTANT! When deleting a cookie and you're not relying on the default attributes,
@@ -253,11 +258,11 @@ is considered the ["default path"](https://tools.ietf.org/html/rfc6265#section-5
 
 Specifies the `boolean` or `string` to be the value for the [`SameSite` `Set-Cookie` attribute](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03#section-4.1.2.7).
 
-- `true` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
-- `false` will not set the `SameSite` attribute.
-- `'lax'` will set the `SameSite` attribute to `Lax` for lax same site enforcement.
-- `'none'` will set the `SameSite` attribute to `None` for an explicit cross-site cookie.
-- `'strict'` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
+-   `true` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
+-   `false` will not set the `SameSite` attribute.
+-   `'lax'` will set the `SameSite` attribute to `Lax` for lax same site enforcement.
+-   `'none'` will set the `SameSite` attribute to `None` for an explicit cross-site cookie.
+-   `'strict'` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
 
 More information about the different enforcement levels can be found in
 [the specification](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03#section-4.1.2.7).
