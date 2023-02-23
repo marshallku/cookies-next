@@ -98,7 +98,7 @@ export const setCookie = (
                 const _cookies = _req.cookies;
                 data === ""
                     ? delete _cookies[key]
-                    : (_cookies[key] = encodeURIComponent(stringify(data)));
+                    : (_cookies[key] = stringify(data));
             }
 
             if (_req && _req.headers && _req.headers.cookie) {
@@ -106,10 +106,11 @@ export const setCookie = (
 
                 data === ""
                     ? delete _cookies[key]
-                    : (_cookies[key] = encodeURIComponent(stringify(data)));
+                    : (_cookies[key] = stringify(data));
 
                 _req.headers.cookie = Object.entries(_cookies).reduce(
-                    (acc, [key, value]) => acc.concat(`${key}=${value};`),
+                    (acc, [key, value]) =>
+                        acc.concat(`${key}=${encodeURIComponent(value)};`),
                     ""
                 );
             }
