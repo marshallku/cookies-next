@@ -1,30 +1,6 @@
 import { serialize, parse } from "cookie";
-import { OptionsType, TmpCookiesObj, CookieValueTypes } from "./types";
-
-const isClientSide = (): boolean => typeof window !== "undefined";
-
-const processValue = (value: string): CookieValueTypes => {
-    if (value === "true") return true;
-    if (value === "false") return false;
-    if (value === "undefined") return undefined;
-    if (value === "null") return null;
-    return value;
-};
-
-const stringify = (value: string = "") => {
-    try {
-        const result = JSON.stringify(value);
-        return /^[\{\[]/.test(result) ? result : value;
-    } catch (e) {
-        return value;
-    }
-};
-
-const decode = (str: string): string => {
-    if (!str) return str;
-
-    return str.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-};
+import { OptionsType, TmpCookiesObj, CookieValueTypes } from "../types";
+import { isClientSide, processValue, decode, stringify } from "../utils";
 
 export const getCookies = (options?: OptionsType): TmpCookiesObj => {
     let req;

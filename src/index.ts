@@ -1,2 +1,2 @@
-export * from "./cookies-next";
+export * from "./lib/cookies-next";
 export * from "./types";
