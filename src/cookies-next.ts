@@ -1,6 +1,5 @@
 import { serialize, parse } from "cookie";
 import { OptionsType, TmpCookiesObj, CookieValueTypes } from "./types";
-export { CookieValueTypes } from "./types";
 
 const isClientSide = (): boolean => typeof window !== "undefined";
 
