@@ -1,6 +1,6 @@
 import { CookieValueTypes } from "../types";
 
-export const processValue = (value: string): CookieValueTypes => {
+export const processCookieValue = (value: string): CookieValueTypes => {
     if (value === "true") return true;
     if (value === "false") return false;
     if (value === "undefined") return undefined;
@@ -8,7 +8,7 @@ export const processValue = (value: string): CookieValueTypes => {
     return value;
 };
 
-export const stringify = (value: string = "") => {
+export const stringifyCookieValue = (value: string = "") => {
     try {
         const result = JSON.stringify(value);
         return /^[\{\[]/.test(result) ? result : value;
@@ -17,7 +17,7 @@ export const stringify = (value: string = "") => {
     }
 };
 
-export const decode = (str: string): string => {
+export const decodeCookieValue = (str: string): string => {
     if (!str) return str;
 
     return str.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);

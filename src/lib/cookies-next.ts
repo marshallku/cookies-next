@@ -1,6 +1,11 @@
 import { serialize, parse } from "cookie";
 import { OptionsType, TmpCookiesObj, CookieValueTypes } from "../types";
-import { isClientSide, processValue, decode, stringify } from "../utils";
+import {
+    isClientSide,
+    processCookieValue,
+    decodeCookieValue,
+    stringifyCookieValue,
+} from "../utils";
 
 export const getCookies = (options?: OptionsType): TmpCookiesObj => {
     let req;
@@ -36,7 +41,7 @@ export const getCookie = (
     const _cookies = getCookies(options);
     const value = _cookies[key];
     if (value === undefined) return undefined;
-    return processValue(decode(value));
+    return processCookieValue(decodeCookieValue(value));
 };
 
 export const setCookie = (
@@ -54,7 +59,7 @@ export const setCookie = (
         _cookieOptions = _options;
     }
 
-    const cookieStr = serialize(key, stringify(data), {
+    const cookieStr = serialize(key, stringifyCookieValue(data), {
         path: "/",
         ..._cookieOptions,
     });
@@ -73,7 +78,7 @@ export const setCookie = (
                 const _cookies = _req.cookies;
                 data === ""
                     ? delete _cookies[key]
-                    : (_cookies[key] = stringify(data));
+                    : (_cookies[key] = stringifyCookieValue(data));
             }
 
             if (_req && _req.headers && _req.headers.cookie) {
@@ -81,7 +86,7 @@ export const setCookie = (
 
                 data === ""
                     ? delete _cookies[key]
-                    : (_cookies[key] = stringify(data));
+                    : (_cookies[key] = stringifyCookieValue(data));
 
                 _req.headers.cookie = Object.entries(_cookies).reduce(
                     (acc, [key, value]) =>
