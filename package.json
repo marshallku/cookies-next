@@ -1,6 +1,6 @@
 {
     "name": "@marshallku/cookies-next",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Getting, setting and removing cookies on both client and server with next.js",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -34,11 +34,11 @@
     },
     "homepage": "https://github.com/marshallku/cookies-next#readme",
     "dependencies": {
-        "cookie": "^0.4.0"
-    },
-    "devDependencies": {
-        "typescript": "^4.4.3",
+        "cookie": "^0.4.0",
         "@types/cookie": "^0.4.1",
         "@types/node": "^16.10.2"
+    },
+    "devDependencies": {
+        "typescript": "^4.4.3"
     }
 }
