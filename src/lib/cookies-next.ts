@@ -5,6 +5,8 @@ import {
     processCookieValue,
     decodeCookieValue,
     stringifyCookieValue,
+    tryDecodeCookieValue,
+    checkUriEncodedSimply,
 } from "../utils";
 
 export const getCookies = (options?: OptionsType): TmpCookiesObj => {
@@ -22,7 +24,7 @@ export const getCookies = (options?: OptionsType): TmpCookiesObj => {
     const _cookies: TmpCookiesObj = {};
     const documentCookies = document.cookie ? document.cookie.split("; ") : [];
 
-    for (let i = 0, len = documentCookies.length; i < len; i++) {
+    for (let i = 0, len = documentCookies.length; i < len; ++i) {
         const cookieParts = documentCookies[i].split("=");
 
         const _cookie = cookieParts.slice(1).join("=");
@@ -109,4 +111,73 @@ export const hasCookie = (key: string, options?: OptionsType): boolean => {
 
     const cookie = getCookies(options);
     return cookie.hasOwnProperty(key);
+};
+
+export const sanitizeCookies = (options?: OptionsType) => {
+    const cookies = getCookies(options);
+    const keys = Object.keys(cookies);
+
+    for (let i = 0, len = keys.length; i < len; ++i) {
+        const key = keys[i];
+        const currentCookie = cookies[key];
+
+        if (!currentCookie) {
+            continue;
+        }
+
+        // Remove cookies with malformed uri
+        const [parsedValue, malformedValue] =
+            tryDecodeCookieValue(currentCookie);
+
+        if (malformedValue || !parsedValue) {
+            if (malformedValue) {
+                deleteCookie(key);
+            }
+
+            continue;
+        }
+
+        // Encode uri-decoded values
+        if (
+            parsedValue &&
+            parsedValue === currentCookie &&
+            !checkUriEncodedSimply(parsedValue)
+        ) {
+            // It overrides options too
+            // Consider using `deleteCookie` instead `setCookie`
+            setCookie(key, encodeURIComponent(currentCookie), options);
+        }
+    }
+};
+
+export const sanitizeCookieString = (str: string) => {
+    if (!str) {
+        return str;
+    }
+
+    const cookieArray = str.split(";");
+    let cookieString = "";
+
+    for (let i = 0, max = cookieArray.length; i < max; ++i) {
+        const [key, value] = cookieArray[i].split("=");
+        // Remove cookies with malformed uri
+        const [parsedValue, malformedValue] = tryDecodeCookieValue(value);
+
+        if (malformedValue) {
+            continue;
+        }
+
+        if (
+            parsedValue === value &&
+            parsedValue &&
+            !checkUriEncodedSimply(parsedValue)
+        ) {
+            cookieString += `${key}=${encodeURIComponent(value)};`;
+            continue;
+        }
+
+        cookieString += `${key}=${value};`;
+    }
+
+    return cookieString;
 };
