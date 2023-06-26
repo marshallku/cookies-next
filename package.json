@@ -6,7 +6,8 @@
     "types": "lib/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "update-version": "bash scripts/update.sh"
+        "update-version": "bash scripts/update.sh",
+        "prepublish": "pnpm run build"
     },
     "repository": {
         "type": "git",
