@@ -12,7 +12,7 @@ node_modules
 *.local
 *.config.*
 tsconfig.json
-package-lock.json
+pnpm-lock.yaml
 scripts
 
 # Editor directories and files
