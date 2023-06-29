@@ -7,7 +7,8 @@
     "scripts": {
         "build": "tsc",
         "update-version": "bash scripts/update.sh",
-        "prepublish": "pnpm run build"
+        "prepublish": "pnpm run build",
+        "test": "jest"
     },
     "repository": {
         "type": "git",
@@ -36,11 +37,14 @@
     },
     "homepage": "https://github.com/marshallku/cookies-next#readme",
     "dependencies": {
-        "cookie": "^0.4.0",
         "@types/cookie": "^0.4.1",
-        "@types/node": "^16.10.2"
+        "@types/jest": "^29.5.2",
+        "@types/node": "^16.10.2",
+        "cookie": "^0.4.0"
     },
     "devDependencies": {
+        "jest": "^29.5.0",
+        "ts-jest": "^29.1.0",
         "typescript": "^4.4.3"
     }
 }
