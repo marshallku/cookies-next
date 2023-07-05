@@ -37,12 +37,12 @@
     },
     "homepage": "https://github.com/marshallku/cookies-next#readme",
     "dependencies": {
-        "@types/cookie": "^0.4.1",
-        "@types/jest": "^29.5.2",
-        "@types/node": "^16.10.2",
         "cookie": "^0.4.0"
     },
     "devDependencies": {
+        "@types/cookie": "^0.4.1",
+        "@types/jest": "^29.5.2",
+        "@types/node": "^16.10.2",
         "jest": "^29.5.0",
         "ts-jest": "^29.1.0",
         "typescript": "^4.4.3"
