@@ -93,7 +93,24 @@ export const setCookie = (
                     : (_cookies[key] = stringifyCookieValue(data));
 
                 _req.headers.cookie = Object.entries(_cookies).reduce(
-                    (acc, [key, value]) => acc.concat(`${key}=${value};`),
+                    (acc, [key, value]) => {
+                        try {
+                            const decodedValue = decodeURIComponent(value);
+
+                            // HACK: Considered as encoded value - it might be malformed
+                            if (decodedValue !== value) {
+                                return acc.concat(`${key}=${value};`);
+                            }
+
+                            return acc.concat(
+                                `${key}=${encodeURIComponent(value)};`
+                            );
+                        } catch {
+                            return acc.concat(
+                                `${key}=${encodeURIComponent(value)};`
+                            );
+                        }
+                    },
                     ""
                 );
             }
