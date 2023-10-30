@@ -1,4 +1,4 @@
-import { OptionsType, setCookie } from "../src";
+import { OptionsType, getCookie, setCookie } from "../src";
 
 const getDummyContext = () =>
     ({
@@ -15,10 +15,31 @@ const getDummyContext = () =>
         },
     } as unknown as OptionsType);
 
-it("Should not override decoded cookies when setting cookie", () => {
-    const { req, res } = getDummyContext();
+describe("Server side cookie", () => {
+    it("Should not override decoded cookies when setting cookie", () => {
+        const { req, res } = getDummyContext();
+        const job = "Front-end developer";
 
-    setCookie("job", "Front-end developer", { req, res });
+        setCookie("job", job, { req, res });
 
-    expect(`${req?.headers.cookie}`).toContain("John%20Doe");
+        expect(`${req?.headers.cookie}`).toContain("John%20Doe");
+    });
+
+    it("Should encode value when setting to headers", () => {
+        const { req, res } = getDummyContext();
+        const status = { foo: true, bar: true };
+
+        setCookie("status", status, { req, res });
+
+        expect(`${req?.headers.cookie}`).toContain(
+            encodeURIComponent(JSON.stringify(status))
+        );
+    });
+
+    it("Should return decoded value", () => {
+        const { req, res } = getDummyContext();
+        const name = getCookie("name", { req, res });
+
+        expect(name).toBe("John Doe");
+    });
 });
