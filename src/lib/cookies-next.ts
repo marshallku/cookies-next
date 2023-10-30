@@ -54,10 +54,13 @@ export const setCookie = (
     let _cookieOptions: any;
     let _req;
     let _res;
+    let _skipEncoding = false;
+
     if (options) {
-        const { req, res, ..._options } = options;
+        const { req, res, skipEncoding = false, ..._options } = options;
         _req = req;
         _res = res;
+        _skipEncoding = skipEncoding;
         _cookieOptions = _options;
     }
 
@@ -98,7 +101,7 @@ export const setCookie = (
                             const decodedValue = decodeURIComponent(value);
 
                             // HACK: Considered as encoded value - it might be malformed
-                            if (decodedValue !== value) {
+                            if (_skipEncoding || decodedValue !== value) {
                                 return acc.concat(`${key}=${value};`);
                             }
 

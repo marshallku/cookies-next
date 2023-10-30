@@ -8,6 +8,7 @@ export interface OptionsType extends CookieSerializeOptions {
             | { [key: string]: string }
             | Partial<{ [key: string]: string }>;
     };
+    skipEncoding?: boolean;
 }
 
 export type TmpCookiesObj =
