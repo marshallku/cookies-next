@@ -1,0 +1,33 @@
+{
+    "words": [
+        "Albamon",
+        "BUILDKIT",
+        "callout",
+        "codebases",
+        "codepoint",
+        "codepoints",
+        "localforage",
+        "marshallku",
+        "nextjs",
+        "preconfigured",
+        "preconfigures",
+        "treeshake",
+        "tsup",
+        "Turborepo",
+        "vercel",
+        "yourdomain"
+    ],
+    "ignorePaths": [
+        "LICENSE",
+        "pnpm-lock.yaml",
+        "package.json",
+        "Dockerfile",
+        "node_modules/**",
+        "**/node_modules/**",
+        ".git/**",
+        "**/dist/**",
+        "**/.next/**",
+        "**/storybook-static/**",
+        "**/.turbo/**"
+    ]
+}
