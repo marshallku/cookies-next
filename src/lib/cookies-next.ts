@@ -88,7 +88,12 @@ export const setCookie = (
 
             if (_req && _req.headers && _req.headers.cookie) {
                 const _cookies: Record<string, string> = parse(
-                    _req.headers.cookie
+                    _req.headers.cookie,
+                    {
+                        decode(value) {
+                            return value;
+                        },
+                    }
                 );
 
                 data === ""
@@ -96,22 +101,22 @@ export const setCookie = (
                     : (_cookies[key] = stringifyCookieValue(data));
 
                 _req.headers.cookie = Object.entries(_cookies).reduce(
-                    (acc, [key, value]) => {
+                    (acc, [k, v]) => {
                         try {
-                            const decodedValue = decodeURIComponent(value);
+                            const decodedValue = decodeURIComponent(v);
 
-                            // HACK: Considered as encoded value - it might be malformed
-                            if (_skipEncoding || decodedValue !== value) {
-                                return acc.concat(`${key}=${value};`);
+                            if (
+                                _skipEncoding ||
+                                key !== k ||
+                                // HACK: Considered as encoded value - it might be malformed
+                                decodedValue !== v
+                            ) {
+                                return acc.concat(`${k}=${v};`);
                             }
 
-                            return acc.concat(
-                                `${key}=${encodeURIComponent(value)};`
-                            );
+                            return acc.concat(`${k}=${encodeURIComponent(v)};`);
                         } catch {
-                            return acc.concat(
-                                `${key}=${encodeURIComponent(value)};`
-                            );
+                            return acc.concat(`${k}=${encodeURIComponent(v)};`);
                         }
                     },
                     ""
