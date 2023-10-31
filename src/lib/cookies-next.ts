@@ -1,4 +1,4 @@
-import { serialize, parse } from "cookie";
+import { serialize, parse, CookieSerializeOptions } from "cookie";
 import { OptionsType, TmpCookiesObj, CookieValueTypes } from "../types";
 import {
     isClientSide,
@@ -51,7 +51,7 @@ export const setCookie = (
     data: any,
     options?: OptionsType
 ): void => {
-    let _cookieOptions: any;
+    let _cookieOptions: CookieSerializeOptions = {};
     let _req;
     let _res;
     let _skipEncoding = false;
@@ -62,6 +62,10 @@ export const setCookie = (
         _res = res;
         _skipEncoding = skipEncoding;
         _cookieOptions = _options;
+
+        if (skipEncoding) {
+            _cookieOptions.encode = (value) => value;
+        }
     }
 
     const cookieStr = serialize(key, stringifyCookieValue(data), {
